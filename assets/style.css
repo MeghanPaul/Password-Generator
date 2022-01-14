@@ -88,6 +88,34 @@ header {
   cursor: pointer;
 }
 
+.ui-dialog-buttonset {
+  display: flex;
+}
+
+.ui-button {
+  background-color: orange;
+  margin: 10px 20px;
+  border-radius: 10px;
+  width: 40%;
+  height: auto;
+  justify-content: space-evenly;
+}
+
+.ui-dialog {
+  background-color: lightgrey; 
+  border: 2px solid orange;
+}
+
+.ui-dialog-titlebar-close {
+  display: none;
+}
+
+.modal-prompt {
+  text-align: center; 
+  margin: 15px auto; 
+  
+}
+
 button[disabled] {
   cursor: default;
   background: #c0c7cf;

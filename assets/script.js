@@ -7,26 +7,28 @@ function generatePassword()
     length = parseInt(window.prompt("Invalid length. Enter a number of characters between 8 and 128: "));
   }
 
-  var inclLower = false;
-  var inclUpper = false;
-  var inclNum = false;
-  var inclSpec = false;
+  var inclLower = customConfirm("lowercase letters");
+  var inclUpper = customConfirm("uppercase letters");
+  var inclNum = customConfirm("numbers");
+  var inclSpec = customConfirm("special characters");
 
-  return "Password" + length;
+  return "Password" + length + inclLower + inclUpper + inclNum + inclSpec;
   
 }
 
 //Reference for modal confirm dialog box
 //https://jqueryui.com/dialog/#modal-confirmation
-function customConfirm() {
+function customConfirm(charType) {
+
   var dialogEl = document.createElement("div");
   dialogEl.setAttribute("id","dialog-confirm");
+  dialogEl.setAttribute("class", "modal-prompt");
+  dialogEl.textContent = "Would you like to include " + charType + "?";
   document.body.appendChild(dialogEl);
+  
   $(function () {
     $("#dialog-confirm").dialog({
       resizable: false,
-      height: "auto",
-      width: 400,
       modal: true,
       buttons: {
         "Yes": function() {
