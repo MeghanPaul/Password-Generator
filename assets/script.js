@@ -7,12 +7,52 @@ function generatePassword()
     length = parseInt(window.prompt("Invalid length. Enter a number of characters between 8 and 128: "));
   }
 
+  //Reference for using setInterval to make one dialog box appear at a time
+  //https://www.codegrepper.com/code-examples/javascript/jquery+wait+for+element+to+exist
+  var timerReset = false;
   var inclLower = customConfirm("lowercase letters");
-  var inclUpper = customConfirm("uppercase letters");
-  var inclNum = customConfirm("numbers");
-  var inclSpec = customConfirm("special characters");
+  inclLowerTimer = setInterval(function(){
+    if(inclLower != undefined){
+      console.log("lower decision made");
 
-  return "Password" + length + inclLower + inclUpper + inclNum + inclSpec;
+      //call inclUpper dialog;
+      inclUpperTimer = setInterval(function(){
+        if(!timerReset)
+        {
+          var inclUpper = customConfirm("uppercase letters");
+          clearInterval(inclLowerTimer);
+          timerReset = true;
+        }
+        if(inclUpper != undefined)
+        {
+          console.log("upper decision made");
+
+          //call inclNum dialog;
+          inclNumTimer = setInterval(function(){
+            if(!timerReset)
+            {
+              var inclNum = customConfirm("numbers");
+              clearInterval(inclUpperTimer);
+              timerReset = true;
+            }
+            if(inclNum != undefined)
+            {
+              console.log("num decision made");
+              clearInterval(inclNumTimer);
+            }
+
+          },100);
+
+        }
+      }, 100);
+    
+    }
+  }, 100);//checks every 100 milliseconds
+  
+  
+  //var inclSpec = customConfirm("special characters");
+
+ // return "Password" + length + inclLower + inclUpper + inclNum + inclSpec;
   
 }
 
