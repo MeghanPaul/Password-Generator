@@ -1,9 +1,9 @@
 // Assignment code here
-var lowercaseArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var uppercaseArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-var specArr = ["!","#","$","%","&","(",")","*","+",",","-",".",":",";","<","=",">","?","@","[","]","^","_","{","}","~"];
-var selectedCharsArr = [];
+var lowercaseArr = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numArr = "1234567890";
+var specArr = "!#$%&,(),*+,-.:;<=>?@[]^_{}~";
+var selectedCharsArr = "";
 
 
 var criteria = {
@@ -102,7 +102,7 @@ function generatePassword()
             $(this).dialog("close");
             window.alert("Please select at lease one character type");
             generatePassword();
-          }else if(lengthVal < 8 && lengthVal > 128 && document.getElementById("length") != '')
+          }else if(document.getElementById("length").value == '' || lengthVal < 8 || lengthVal > 128)
           {
             $(this).dialog("close");
             window.alert("Please enter a length value between 8 and 128");
@@ -135,9 +135,12 @@ function generatePassword()
             }
 
             for(var i = 0; i < criteria.length; i++){
-              charArrIndex = Math.floor(Math.random()*selectedCharsArr.length);
-              password += selectedCharsArr[charArrIndex];
+              charArrIndex = Math.floor(Math.random()*selectedCharsArr.length)-1;
+              password += selectedCharsArr.substring(charArrIndex,charArrIndex+1);
             }
+
+            selectedCharsArr = "";
+            length = '';
 
             console.log("returning " + password);
             return password;
