@@ -5,6 +5,7 @@ var numArr = "1234567890";
 var specArr = "!#$%&,(),*+,-.:;<=>?@[]^_{}~";
 var selectedCharsArr = "";
 
+var firstGenerate = true;
 
 var criteria = {
   inclLower: undefined, inclUpper: undefined, inclNum: undefined, inclSpec: undefined, length: undefined,
@@ -28,62 +29,65 @@ var criteria = {
 function generatePassword()
 {
   //creating and defining html elements for dialog box
-  var dialogEl = document.createElement("div");
-  var formEl = document.createElement("form");
-  var lengthLabelEl = document.createElement("label");
-  var lengthInputEl = document.createElement("input");
-  var lowerLabelEl = document.createElement("label");
-  var lowerCheckboxEl = document.createElement("input");
-  var upperLabelEl = document.createElement("label");
-  var upperCheckboxEl = document.createElement("input");
-  var numLabelEl = document.createElement("label");
-  var numCheckboxEl = document.createElement("input");
-  var specLabelEl = document.createElement("label");
-  var specCheckboxEl = document.createElement("input");
+  if(firstGenerate)
+  {
+    firstGenerate = false;
+    var dialogEl = document.createElement("div");
+    var formEl = document.createElement("form");
+    var lengthLabelEl = document.createElement("label");
+    var lengthInputEl = document.createElement("input");
+    var lowerLabelEl = document.createElement("label");
+    var lowerCheckboxEl = document.createElement("input");
+    var upperLabelEl = document.createElement("label");
+    var upperCheckboxEl = document.createElement("input");
+    var numLabelEl = document.createElement("label");
+    var numCheckboxEl = document.createElement("input");
+    var specLabelEl = document.createElement("label");
+    var specCheckboxEl = document.createElement("input");
 
-  dialogEl.setAttribute("id","dialog-form");
-  dialogEl.setAttribute("class", "modal-prompt");
+    dialogEl.setAttribute("id","dialog-form");
+    dialogEl.setAttribute("class", "modal-prompt");
 
-  formEl.setAttribute("id","form");
-  
-  lengthLabelEl.setAttribute("for","length");
-  lengthLabelEl.textContent = "Enter a number of characters between 8 and 128: ";
-  lengthInputEl.setAttribute("type","text");
-  lengthInputEl.setAttribute("id","length");
+    formEl.setAttribute("id","form");
+    
+    lengthLabelEl.setAttribute("for","length");
+    lengthLabelEl.textContent = "Enter a number of characters between 8 and 128: ";
+    lengthInputEl.setAttribute("type","text");
+    lengthInputEl.setAttribute("id","length");
 
-  lowerLabelEl.setAttribute("for","lower");
-  lowerLabelEl.textContent = "Include Lowercase Letters ";
-  lowerCheckboxEl.setAttribute("id","lower");
-  lowerCheckboxEl.setAttribute("type","checkbox");
+    lowerLabelEl.setAttribute("for","lower");
+    lowerLabelEl.textContent = "Include Lowercase Letters ";
+    lowerCheckboxEl.setAttribute("id","lower");
+    lowerCheckboxEl.setAttribute("type","checkbox");
 
-  upperLabelEl.setAttribute("for","upper");
-  upperLabelEl.textContent = "Include Uppercase Letters ";
-  upperCheckboxEl.setAttribute("id","upper");
-  upperCheckboxEl.setAttribute("type","checkbox");
+    upperLabelEl.setAttribute("for","upper");
+    upperLabelEl.textContent = "Include Uppercase Letters ";
+    upperCheckboxEl.setAttribute("id","upper");
+    upperCheckboxEl.setAttribute("type","checkbox");
 
-  numLabelEl.setAttribute("for","num");
-  numLabelEl.textContent = "Include Numbers ";
-  numCheckboxEl.setAttribute("id","num");
-  numCheckboxEl.setAttribute("type","checkbox");
+    numLabelEl.setAttribute("for","num");
+    numLabelEl.textContent = "Include Numbers ";
+    numCheckboxEl.setAttribute("id","num");
+    numCheckboxEl.setAttribute("type","checkbox");
 
-  specLabelEl.setAttribute("for","spec");
-  specLabelEl.textContent = "Include Special Characters ";
-  specCheckboxEl.setAttribute("id","spec");
-  specCheckboxEl.setAttribute("type","checkbox");
+    specLabelEl.setAttribute("for","spec");
+    specLabelEl.textContent = "Include Special Characters ";
+    specCheckboxEl.setAttribute("id","spec");
+    specCheckboxEl.setAttribute("type","checkbox");
 
-  document.body.appendChild(dialogEl);
-  dialogEl.appendChild(formEl);
-  formEl.appendChild(lengthLabelEl);
-  formEl.appendChild(lengthInputEl);
-  formEl.appendChild(lowerLabelEl);
-  formEl.appendChild(lowerCheckboxEl);
-  formEl.appendChild(upperLabelEl);
-  formEl.appendChild(upperCheckboxEl);
-  formEl.appendChild(numLabelEl);
-  formEl.appendChild(numCheckboxEl);
-  formEl.appendChild(specLabelEl);
-  formEl.appendChild(specCheckboxEl);
-
+    document.body.appendChild(dialogEl);
+    dialogEl.appendChild(formEl);
+    formEl.appendChild(lengthLabelEl);
+    formEl.appendChild(lengthInputEl);
+    formEl.appendChild(lowerLabelEl);
+    formEl.appendChild(lowerCheckboxEl);
+    formEl.appendChild(upperLabelEl);
+    formEl.appendChild(upperCheckboxEl);
+    formEl.appendChild(numLabelEl);
+    formEl.appendChild(numCheckboxEl);
+    formEl.appendChild(specLabelEl);
+    formEl.appendChild(specCheckboxEl);
+  }
   $(function () {
     $("#dialog-form").dialog({
       resizable: false,
