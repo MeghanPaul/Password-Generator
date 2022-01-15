@@ -1,4 +1,11 @@
 // Assignment code here
+var lowercaseArr = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var uppercaseArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var numArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+var specArr = ["!","#","$","%","&","(",")","*","+",",","-",".",":",";","<","=",">","?","@","[","]","^","_","{","}","~"];
+var selectedCharsArr = [];
+
+
 var criteria = {
   inclLower: undefined, inclUpper: undefined, inclNum: undefined, inclSpec: undefined, length: undefined,
   updateCrit: function(criterion, value) {
@@ -36,6 +43,8 @@ function generatePassword()
 
   dialogEl.setAttribute("id","dialog-form");
   dialogEl.setAttribute("class", "modal-prompt");
+
+  formEl.setAttribute("id","form");
   
   lengthLabelEl.setAttribute("for","length");
   lengthLabelEl.textContent = "Enter a number of characters between 8 and 128: ";
@@ -82,18 +91,62 @@ function generatePassword()
       buttons: {
         "Submit": function() {
           console.log("Form Submitted");
-          console.log(document.getElementById("lower").checked);
-          criteria.updateCrit(lower, document.getElementById("lower").checked);
-          criteria.updateCrit(upper, document.getElementById("upper").checked);
-          criteria.updateCrit(num, document.getElementById("num").checked);
-          criteria.updateCrit(spec, document.getElementById("spec").checked);
-          criteria.updateCrit(length, document.getElementById("length").value);
-          console.log(JSON.stringify(criteria));
-          $(this).dialog("close");
+          var lowerVal = document.getElementById("lower").checked;
+          var upperVal = document.getElementById("upper").checked;
+          var numVal = document.getElementById("num").checked;
+          var specVal = document.getElementById("spec").checked;
+          var lengthVal = parseInt(document.getElementById("length").value);
+
+          if(!(lowerVal || upperVal || numVal || specVal))
+          {
+            $(this).dialog("close");
+            window.alert("Please select at lease one character type");
+            generatePassword();
+          }else if(lengthVal < 8 && lengthVal > 128 && document.getElementById("length") != '')
+          {
+            $(this).dialog("close");
+            window.alert("Please enter a length value between 8 and 128");
+            generatePassword();
+          }else{
+            console.log("valid input");
+            criteria.updateCrit("lower", lowerVal);
+            criteria.updateCrit("upper", upperVal);
+            criteria.updateCrit("num", numVal);
+            criteria.updateCrit("spec", specVal);
+            criteria.updateCrit("length", lengthVal);
+            console.log(JSON.stringify(criteria));
+            $(this).dialog("close");
+            document.getElementById("form").reset();
+            console.log("Begin Password Generation");
+            var password = "";
+            var charArrIndex = 0;
+            
+            if(criteria.inclLower){
+              selectedCharsArr += lowercaseArr;
+            }
+            if(criteria.inclUpper){
+              selectedCharsArr += uppercaseArr;
+            }
+            if(criteria.inclNum){
+              selectedCharsArr += numArr;
+            }
+            if(criteria.inclSpec){
+              selectedCharsArr += specArr;
+            }
+
+            for(var i = 0; i < criteria.length; i++){
+              charArrIndex = Math.floor(Math.random()*selectedCharsArr.length);
+              password += selectedCharsArr[charArrIndex];
+            }
+
+            console.log("returning " + password);
+            return password;
+          }
         }
       }
     });
   });
+
 }
 
 // Get references to the #generate element
