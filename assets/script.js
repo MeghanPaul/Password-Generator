@@ -88,6 +88,8 @@ function generatePassword()
     $("#dialog-form").dialog({
       resizable: false,
       modal: true,
+      position: { my: "center", at: "center", of: window },
+      width: 400,
       buttons: {
         "Submit": function() {
           console.log("Form Submitted");
@@ -143,7 +145,7 @@ function generatePassword()
             length = '';
 
             console.log("returning " + password);
-            return password;
+            writePassword(password);
           }
         }
       }
@@ -156,8 +158,7 @@ function generatePassword()
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
+function writePassword(password) {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
@@ -165,4 +166,4 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);

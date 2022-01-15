@@ -1,3 +1,9 @@
+:root {
+  --red: hsl(360, 91%, 36%);
+  --white: hsl(0, 0%, 100%);
+  --text-grey: hsl(206, 17%, 28%);
+}
+
 *,
 *::before,
 *::after {
@@ -27,15 +33,15 @@ header {
   text-align: center;
   padding: 20px;
   padding-top: 0px;
-  color: hsl(206, 17%, 28%);
+  color: var(--text-grey);
 }
 
 .card {
-  background-color: hsl(0, 0%, 100%);
+  background-color: var(--white);
   border-radius: 5px;
   border-width: 1px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
-  color: hsl(206, 17%, 28%);
+  color: var(--text-grey);
   font-size: 18px;
   margin: 0 auto;
   max-width: 800px;
@@ -74,40 +80,55 @@ header {
 
 .btn {
   border: none;
-  background-color: hsl(360, 91%, 36%);
+  background-color: var(--red);
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
     0px;
-  color: hsl(0, 0%, 100%);
+  color: var(--white);
   display: inline-block;
   font-size: 22px;
   line-height: 22px;
   margin: 16px 16px 16px 20px;
   padding: 14px 34px;
   text-align: center;
-  cursor: pointer;
-}
-
-.modal-prompt form label {
-  display: flex;
 }
 
 .ui-dialog-buttonset {
   display: flex;
+  justify-content: center;
 }
 
 .ui-button {
-  background-color: orange;
+  background-color: var(--red);
   margin: 10px 20px;
   border-radius: 10px;
   width: 40%;
   height: auto;
-  justify-content: space-evenly;
+  justify-content: center;
+  border-style: none;
+  border-color: none;
+  color: var(--white);
 }
 
 .ui-dialog {
-  background-color: lightgrey; 
-  border: 2px solid orange;
+  background-color: var(--white); 
+  border: 2px solid var(--red);
+}
+
+.ui-dialog-content form {
+}
+
+.ui-dialog-content form label{
+  display: flex;
+  justify-content: center;
+  color: var(--text-grey);
+  font-size: 15px;
+  font-weight: bold;
+  margin: 15px auto 5px auto;
+}
+
+.ui-dialog-content form input {
+  margin: 0px auto;
 }
 
 .ui-dialog-titlebar-close {
@@ -116,8 +137,7 @@ header {
 
 .modal-prompt {
   text-align: center; 
-  margin: 15px auto; 
-  
+  margin: 15px auto;
 }
 
 button[disabled] {
