@@ -16,90 +16,86 @@ var criteria = {
   }
 };
 
-function generatePassword()
-{
-  customConfirm("length", "length");
-
-  //Reference for using setInterval to make one dialog box appear at a time
-  //https://www.codegrepper.com/code-examples/javascript/jquery+wait+for+element+to+exist
-  customConfirm("lowercase letters", "lower");
-  customConfirm("uppercase letter", "upper");
-  customConfirm("numbers","num");
-  customConfirm("special characters","spec");
- 
-  var counter = 0;
-  var wait = setInterval(function(){
-    console.log(counter);
-    counter++;
-    if(criteria.inclLower != undefined && criteria.inclUpper != undefined && criteria.inclNum != undefined && criteria.inclSpec != undefined)
-    {
-      clearInterval(wait);
-    }
-  },100);
-  console.log("FINAL: " + JSON.stringify(criteria));
- 
 //Reference for modal confirm dialog box
 //https://jqueryui.com/dialog/#modal-confirmation
-function customConfirm(promptFill, criterion) {
-
+function generatePassword()
+{
+  //creating and defining html elements for dialog box
   var dialogEl = document.createElement("div");
-  dialogEl.setAttribute("id","dialog-confirm");
-  dialogEl.setAttribute("class", "modal-prompt");
-  if(criterion == "length")
-  {
-    dialogEl.textContent = "Enter length of password as a number of characters between 8 and 128: ";
-    var lengthFormEl = document.createElement("form");
-    var formInputEl = document.createElement("input");
-    formInputEl.setAttribute("type","text");
-    formInputEl.setAttribute("id","lengthValue");
-    document.body.appendChild(dialogEl);
-    dialogEl.appendChild(lengthFormEl);
-    lengthFormEl.appendChild(formInputEl);
-    $(function () {
-      $("#dialog-confirm").dialog({
-        resizable: false,
-        modal: true,
-        buttons: {
-          "Continue": function() {
-            console.log("Length submitted");
-            criteria.updateCrit(criterion, document.getElementById("lengthValue").value);
-            $(this).dialog("close");
-          }
-        }
-      });
-    });
+  var formEl = document.createElement("form");
+  var lengthLabelEl = document.createElement("label");
+  var lengthInputEl = document.createElement("input");
+  var lowerLabelEl = document.createElement("label");
+  var lowerCheckboxEl = document.createElement("input");
+  var upperLabelEl = document.createElement("label");
+  var upperCheckboxEl = document.createElement("input");
+  var numLabelEl = document.createElement("label");
+  var numCheckboxEl = document.createElement("input");
+  var specLabelEl = document.createElement("label");
+  var specCheckboxEl = document.createElement("input");
 
-    /* while(length < 8 || length > 128)
-    {
-      length = parseInt(window.prompt("Invalid length. Enter a number of characters between 8 and 128: "));
-    } */
-  }else {
-    dialogEl.textContent = "Would you like to include " + promptFill + "?";
-    document.body.appendChild(dialogEl);
-    
-    $(function () {
-      $("#dialog-confirm").dialog({
-        resizable: false,
-        modal: true,
-        buttons: {
-          "Yes": function() {
-            console.log("Yes selected for " + promptFill);
-            criteria.updateCrit(criterion, true);
-            $(this).dialog("close");
-            return true;
-          },
-          "No": function() {
-            console.log("No selected for " + promptFill);
-            criteria.updateCrit(criterion, false);
-            $(this).dialog("close");
-            return false;
-          }
+  dialogEl.setAttribute("id","dialog-form");
+  dialogEl.setAttribute("class", "modal-prompt");
+  
+  lengthLabelEl.setAttribute("for","length");
+  lengthLabelEl.textContent = "Enter a number of characters between 8 and 128: ";
+  lengthInputEl.setAttribute("type","text");
+  lengthInputEl.setAttribute("id","length");
+
+  lowerLabelEl.setAttribute("for","lower");
+  lowerLabelEl.textContent = "Include Lowercase Letters ";
+  lowerCheckboxEl.setAttribute("id","lower");
+  lowerCheckboxEl.setAttribute("type","checkbox");
+
+  upperLabelEl.setAttribute("for","upper");
+  upperLabelEl.textContent = "Include Uppercase Letters ";
+  upperCheckboxEl.setAttribute("id","upper");
+  upperCheckboxEl.setAttribute("type","checkbox");
+
+  numLabelEl.setAttribute("for","num");
+  numLabelEl.textContent = "Include Numbers ";
+  numCheckboxEl.setAttribute("id","num");
+  numCheckboxEl.setAttribute("type","checkbox");
+
+  specLabelEl.setAttribute("for","spec");
+  specLabelEl.textContent = "Include Special Characters ";
+  specCheckboxEl.setAttribute("id","spec");
+  specCheckboxEl.setAttribute("type","checkbox");
+
+  document.body.appendChild(dialogEl);
+  dialogEl.appendChild(formEl);
+  formEl.appendChild(lengthLabelEl);
+  formEl.appendChild(lengthInputEl);
+  formEl.appendChild(lowerLabelEl);
+  formEl.appendChild(lowerCheckboxEl);
+  formEl.appendChild(upperLabelEl);
+  formEl.appendChild(upperCheckboxEl);
+  formEl.appendChild(numLabelEl);
+  formEl.appendChild(numCheckboxEl);
+  formEl.appendChild(specLabelEl);
+  formEl.appendChild(specCheckboxEl);
+
+  $(function () {
+    $("#dialog-form").dialog({
+      resizable: false,
+      modal: true,
+      buttons: {
+        "Submit": function() {
+          console.log("Form Submitted");
+          console.log(document.getElementById("lower").checked);
+          criteria.updateCrit(lower, document.getElementById("lower").checked);
+          criteria.updateCrit(upper, document.getElementById("upper").checked);
+          criteria.updateCrit(num, document.getElementById("num").checked);
+          criteria.updateCrit(spec, document.getElementById("spec").checked);
+          criteria.updateCrit(length, document.getElementById("length").value);
+          console.log(JSON.stringify(criteria));
+          $(this).dialog("close");
         }
-      });
+      }
     });
-  }
+  });
 }
-}
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 

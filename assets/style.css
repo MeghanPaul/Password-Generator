@@ -88,6 +88,10 @@ header {
   cursor: pointer;
 }
 
+.modal-prompt form label {
+  display: flex;
+}
+
 .ui-dialog-buttonset {
   display: flex;
 }
