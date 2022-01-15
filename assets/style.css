@@ -115,9 +115,6 @@ header {
   border: 2px solid var(--red);
 }
 
-.ui-dialog-content form {
-}
-
 .ui-dialog-content form label{
   display: flex;
   justify-content: center;
